@@ -4,10 +4,10 @@
       <h2 ng-if="!twoColoumnView">TO-DO-LIST <span class="collapse" ng-click="toggle('close');">CLOSE</span></h2>
       <h2 ng-if="twoColoumnView" ng-click="toggle('open');">OPEN</h2>
       <div ng-if="!twoColoumnView">
-            <input type="text" class="newNote" ng-model="newFolder"></input>
-            <button type="button" class="addNote" ng-click="addNewNote(newFolder, null)">ADD FOLDER</button>
+            <input class="newNote newFolderName" ng-model="newFolderName"></input>
+            <button type="button" class="addNote" ng-click="addNewNote(newFolderName, null)">ADD FOLDER</button>
             <div class="folderContainer">
-              <div class="folderList" ng-repeat="folderList in listData.listFolder | orderBy:'folderName'">
+              <div class="folderList" ng-repeat="folderList in listData | orderBy:'folderName'">
                   <label class="folderName" ng-click="selectFolder(folderList.folderId, null)">{{folderList.folderName}}</label>
                   <hr>
               </div>
@@ -17,9 +17,9 @@
 
     <div class="column" ng-style="newColoumn" style="background-color:#bbb;">
         <h2>SEARCH<span><input type="text" class="collapse" ng-model="searchNote"></input></span></h2>
-        <input type="text" class="newNote" ng-model="newNote"></input>
+        <textarea rows="2" type="text" class="newNote" ng-model="newNote"></textarea>
         <button type="button" class="addNote" ng-click="addNewNote(null, newNote)">ADD NOTE</button>
-        <div ng-if="listToDos" class="listContainer" ng-click="selectFolder(null, todoList)" ng-repeat= "todoList in listToDos[0]| orderBy:'-listCreatedAt' | filter: searchNote">
+        <div ng-if="listToDos" class="listContainer" ng-click="selectFolder(null, todoList)" ng-repeat= "todoList in listToDos| orderBy:'-listCreatedAt' | filter: searchNote">
             <h2>{{todoList.listContent|limitTo :20}}</h2>
             <p>{{todoList.listCreatedAt | date:'HH:mm:ss'}} : {{todoList.listContent|limitTo :25}}...</p>
         </div>
@@ -32,7 +32,7 @@
         <h2>LIST CONTENT</h2>
         <div class="listContent">
             <p ng-if="!showTextArea">{{toDoItem.listContent}}</p>
-            <textarea rows="6" ng-show="showTextArea" ng-keypress="startTrigger()" class="newNote" ng-model="editedNote" ></textarea>
+            <textarea rows="4" ng-show="showTextArea" ng-keypress="startTrigger()" class="newNote" ng-model="editedNote" ></textarea>
             <button ng-if="toDoItem" type="button" class="editNote noteBtn" ng-click="editNote('edit', toDoItem)">EDIT</button>
             <button ng-if="showDelete" type="button" class="editNote noteBtn" ng-click="deleteNote(toDoItem)">DELETE</button>
             <button ng-if="showTextArea" type="button" class="saveNote noteBtn" ng-click="saveNote()">SAVE</button>
